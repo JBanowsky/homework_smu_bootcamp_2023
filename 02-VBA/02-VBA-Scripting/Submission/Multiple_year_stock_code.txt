@@ -1,0 +1,131 @@
+Sub stockAnalysis()
+    
+    'declare variables
+    'for worksheet loop
+    Dim currentWS As Integer
+    Dim wsCount As Integer
+    
+    'for row tracker
+    Dim i As Double
+    Dim summaryRow As Double
+        
+    'Ticker tracker
+    Dim currentTicker As String
+    Dim nextTicker As String
+      
+    'Stock price tracker, j as counter to preserve open price
+    Dim j As Integer
+    Dim openPrice As Double
+    Dim closePrice As Double
+    Dim yearlyChange As Double
+    Dim percentChange As Double
+    
+    'volume tracker
+    Dim totalVolume As Double
+    Dim volume As Double
+    
+    'assign variables
+    wsCount = Worksheets.Count
+    
+    'run stockAnalysis on each worksheet
+    For currentWS = 1 To wsCount
+        
+        'Loop worksheet
+        Worksheets(currentWS).Activate
+           
+        'Label Worksheet
+        Cells(1, 9).Value = "Ticker"
+        Cells(1, 10).Value = "Yearly Change"
+        Cells(1, 11).Value = "Percent Change"
+        Cells(1, 12).Value = "Total Stock Volume"
+        Cells(1, 15).Value = "Ticker"
+        Cells(1, 16).Value = "Value"
+        Cells(2, 14).Value = "Greatest %Increase"
+        Cells(3, 14).Value = "Greatest %Decrease"
+        Cells(4, 14).Value = "Greatest Total Volume"
+    
+        Columns("J:L").ColumnWidth = 18
+        Columns("N").ColumnWidth = 22
+        Columns("P").ColumnWidth = 18
+    
+        'assign variables
+        totalVolume = 0
+        summaryRow = 2
+        j = 0
+    
+        'count last row from https://www.wallstreetmojo.com/vba-last-row/
+        Dim LR As Double
+        LR = Range("A:A").SpecialCells(xlCellTypeLastCell).Row
+        
+        'do work
+        For i = 2 To LR
+            'collect ticker information
+            currentTicker = Cells(i, 1).Value
+            nextTicker = Cells(i + 1, 1).Value
+            
+            'collect and sum volume each row
+            volume = Cells(i, 7).Value
+            totalVolume = totalVolume + volume
+        
+            'save open price for the year, j=1 to set open price as saved
+            If j = 0 Then
+                openPrice = Cells(i, 3).Value
+                j = 1
+            End If
+               
+            'check for end of current Ticker
+            If currentTicker <> nextTicker Then
+                
+                'select yearly closing price and apply work with saved open price
+                closePrice = Cells(i, 6).Value
+                yearlyChange = closePrice - openPrice
+                percentChange = closePrice / openPrice - 1
+            
+                'display collected and calculated data per ticker
+                Cells(summaryRow, 9).Value = currentTicker
+                Cells(summaryRow, 10).Value = FormatCurrency(yearlyChange)
+                Cells(summaryRow, 11).Value = FormatPercent(percentChange)
+                Cells(summaryRow, 12).Value = totalVolume
+             
+                'color formatting for Yearly Price Change gain or loss
+                If yearlyChange > 0 Then
+                    Cells(summaryRow, 10).Interior.ColorIndex = 35
+                Else
+                    Cells(summaryRow, 10).Interior.ColorIndex = 38
+                End If
+                
+                'color formatting for Yearly Perccent Change gain or loss
+                If percentChange > 0 Then
+                    Cells(summaryRow, 11).Interior.ColorIndex = 35
+                Else
+                    Cells(summaryRow, 11).Interior.ColorIndex = 38
+                End If
+                        
+                'Greatest Percent Increase work
+                If Cells(2, 16).Value < percentChange Then
+                    Cells(2, 15).Value = currentTicker
+                    Cells(2, 16).Value = FormatPercent(percentChange)
+                End If
+                
+                'Greatest Percent Decrease work
+                If Cells(3, 16).Value > percentChange Then
+                    Cells(3, 15).Value = currentTicker
+                    Cells(3, 16).Value = FormatPercent(percentChange)
+                End If
+                
+                'Greatest Total volume work
+                If Cells(4, 16).Value < totalVolume Then
+                    Cells(4, 15).Value = currentTicker
+                    Cells(4, 16).Value = totalVolume
+                End If
+            
+                'reset the open price, ticker volume and start new output row for next ticker
+                j = 0
+                totalVolume = 0
+                summaryRow = summaryRow + 1
+                
+            End If
+        Next i
+    Next currentWS
+End Sub
+
