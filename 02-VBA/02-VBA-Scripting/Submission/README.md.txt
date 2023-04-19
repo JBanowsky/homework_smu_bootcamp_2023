@@ -13,7 +13,9 @@ Code can be found in Multiple_year_stock_code.txt
 My code is structured around reading a ticker value, storing the initial opening price, and then summing its volume each line until it entcounters the last given row. 
 Then the code stores the ending price and calculates and displays the price change and the percent change as well as calculating and displaying the total volume. 
 The variables pertaining to price and volume are then reset and the it repreats using a for loop. 
-In order to display the stocks with greatest value, I used conditionals to compare and store the largest increase, decrease and total volume each time the ticker value changed. I used cell formating to display the data appropriately. This code does run through each sheet in the workbook using a for loop and worksheet functions.
+In order to display the stocks with greatest value, I used conditionals to compare and store the largest increase, decrease and total volume each time the ticker value changed.
+I used cell formating to display the data appropriately. 
+This code does run through each sheet in the workbook using a for loop and worksheet functions.
 
 Most of the code was resourced by the SMU Bootcamp material.
 
