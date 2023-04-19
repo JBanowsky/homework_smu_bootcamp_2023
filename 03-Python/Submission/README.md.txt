@@ -4,7 +4,7 @@ by John Banowsky
 03-Python-Scripting/Submission
 
 This activity is the SMU Boot Camp Module 3 Challenge. 
-In this module assignment, I used Python to analyze 2 seperate csv files: 
+In this module assignment, I used Python to analyze 2 separate csv files: 
 budget_data.csv (PyBank) and election_data.csv (PyPoll)
 
 Most of the code was resourced by the SMU Bootcamp material.
@@ -20,7 +20,7 @@ Output file in PyBank/Analysis/PyBankFinalAnalysis.txt
 
 
 Activity Summary:
-My PyBank code takes the profit/losses value from each month and calculates the total profit/losses at the end the time frame.
+My PyBank code takes the profit/losses value from each month and calculates the total profit/losses at the end of the time frame.
 I also calculate the change between months. The data was pre-sorted without any gaps.
 It also tracks and outputs the months with the greatest monthly increase or decrease.
 
@@ -30,13 +30,13 @@ The code starts with locating the csv file using code taught during the course. 
 
 I use lists and a for loop to pull and store the data from the csv: Date in yr-month (month) and profit/losses column (balance).
 I also create a list called change to store the calculation for the change in profit/losses per month.
-To fill the change list, I use a for loop to go through the balance list and calculate the the balance for the current index (i) and the previous one (i-1).
+To fill the change list, I use a for loop to go through the balance list and calculate the balance for the current index (i) and the previous one (i-1).
 I account for the first month not having a change with an if loop that stores 0 for a month without a change. I ignore the 0 in the mean calculation.
 Inside the for loop, I also calculate the variable total_balance to add the balance each index as an int to the previous balance.  
 
 I use the max, min and len functions to fill in the final data analysis.
 
-I print the anaylsis in the terminal using a method taught in class to save the text into a list and print from a for loop.
+I print the analysis in the terminal using a method taught in class to save the text into a list and print from a for loop.
 
 I create and write a text file in the Analysis folder.
 I researched online and used an article from David Fagbuyiro to understand the text file features of python. 
@@ -80,7 +80,7 @@ During the loop, I fill the dictionaries with the index number and a particular 
 I also use an if/elif statement to identify the winner by:
 storing a winner count variable if a candidate has the highest total count and a winner variable with that candidate.
 
-I use the same method to print the anaylsis in the terminal as before to save the text into a list and print from a for loop. 
+I use the same method to print the analysis in the terminal as before to save the text into a list and print from a for loop. 
 However, the method works only for the non-variable information.
 I use a for loop to display the candidate index specific text lines.
 
@@ -93,6 +93,6 @@ Code Logic:
 This activity takes very little effort in Excel by identifying the unique stings in the Candidates column and then counting just those names. 
 To duplicate this process, I thought to store the unique values in a list and then reference those values.
 I could not do the calculations like I did in the PyBank activity because I could not figure out how to reference the data from one list to the other.
-I worked around this with the dictionaries, but not until I found a way to account for reading an unknown set of cadidates.
+I worked around this with the dictionaries, but not until I found a way to account for reading an unknown set of candidates.
 By using the %d, I was able to store an index for each unique candidate to then do a store the calculations.
 It worked. It feels bulky. I couldn't think of a more simple way.
